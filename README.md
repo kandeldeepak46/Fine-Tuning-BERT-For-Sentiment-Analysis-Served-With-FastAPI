@@ -29,8 +29,6 @@ The response you'll get looks something like this:
 Clone this repo:
 
 ```sh
-git clone git@github.com:curiousily/Deploy-BERT-for-Sentiment-Analysis-with-FastAPI.git
-cd Deploy-BERT-for-Sentiment-Analysis-with-FastAPI
 ```
 
 Install the dependencies:
