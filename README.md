@@ -4,7 +4,7 @@ Deploy a pre-trained BERT model for Sentiment Analysis as a REST API using FastA
 
 
 
-## Installation
+## Local Usage
 
 Clone this repo:
 
@@ -32,7 +32,7 @@ Start the HTTP server:
 ```sh
 bin/start_server
 ```
-
+if everything goes well, the fastAPI sucessfully get started
 
 ## Demo
 
