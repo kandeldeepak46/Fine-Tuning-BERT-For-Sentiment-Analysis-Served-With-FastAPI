@@ -24,8 +24,6 @@ The response you'll get looks something like this:
 }
 ```
 
-You can also [read the complete tutorial here](https://www.curiousily.com/posts/deploy-bert-for-sentiment-analysis-as-rest-api-using-pytorch-transformers-by-hugging-face-and-fastapi/)
-
 ## Installation
 
 Clone this repo:
