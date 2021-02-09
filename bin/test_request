@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# http POST http://localhost:8000/predict text="This app is a total waste of time!"
+
+ curl -d "{\"text\":\"this is a waste if time\"}" -X POST http://localhost:8000/predict
