@@ -7,11 +7,7 @@ Deploy a pre-trained BERT model for Sentiment Analysis as a REST API using FastA
 The model is trained to classify sentiment (negative, neutral, and positive) on a custom dataset from app reviews on Google Play. Here's a sample request to the API:
 
 ```bash
-curl -d "{\"text\":\"
-    This game is amazing, it is literally part of my childhood. 
-    It works well with hand eye coordination, and might even help with reflexes (not positive, just a guess).
-    This game can keep you interested for hours, and has a lot of small things to work for! I really like the way the game has been moving as of update.
-\"}" -X POST http://localhost:8000/predict
+ curl -d "{\"text\":\"This game is amazing, it is literally part of my childhood. It works well with hand eye coordination, and might even help with reflexes (not positive, just a guess)This game can keep you interested for hours,and has a lot of small things to work for! I really like the way the game has been moving as of update.\"}" -X POST http://localhost:8000/predict
 ```
 
 The response you'll get looks something like this:
