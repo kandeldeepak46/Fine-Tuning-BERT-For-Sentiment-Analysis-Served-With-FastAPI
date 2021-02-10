@@ -8,10 +8,8 @@ with open("config.json") as json_file:
 
 
 class SentimentClassifier(nn.Module):
-    """A blueprint about the structure of the model we are using for the sentiment classifier, initialized with BertModel.
-       
+    """A blueprint about the structure of the model we are using for the sentiment classifier, initialized with BertModel. 
        Dropout used for regularization.
-       
        Linear activation function used in classifing layer.
     """
 
