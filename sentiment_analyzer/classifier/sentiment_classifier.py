@@ -8,6 +8,10 @@ with open("config.json") as json_file:
 
 
 class SentimentClassifier(nn.Module):
+    '''A blueprint about the structure of the model we are using for the sentiment classifier, initialized with BertModel.
+       Dropout used for regularization.
+       linear activation function used in classifing layer.
+    '''
     def __init__(self, n_classes):
         super(SentimentClassifier, self).__init__()
         self.bert = BertModel.from_pretrained(config["BERT_MODEL"])
