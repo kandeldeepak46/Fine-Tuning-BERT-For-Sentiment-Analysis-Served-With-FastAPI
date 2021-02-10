@@ -71,13 +71,16 @@ class GPReviewDataset(Dataset):
 
 class GooglePlayReviewDataset(GPReviewDataset):
     def __init__(self, df, batch_size):
+        super(GPReviewDataset, self).__init__()
         self.df = df
         self.batch_size = batch_size
 
-    df_train, df_test = train_test_split(
-        self.df, test_size=0.1, random_state=RANDOM_SEED
-    )
-    df_val, df_test = train_test_split(df_test, test_size=0.5, random_state=RANDOM_SEED)
+        self.df_train, self.df_test = train_test_split(
+            self.df, test_size=0.1, random_state=RANDOM_SEED
+        )
+        df_val, df_test = train_test_split(
+            self.df_test, test_size=0.5, random_state=RANDOM_SEED
+        )
 
     def create_data_loader(self, df, tokenizer, max_len, batch_size):
         ds = GPReviewDataset(
@@ -90,6 +93,7 @@ class GooglePlayReviewDataset(GPReviewDataset):
         return DataLoader(ds, batch_size=self.batch_size, num_workers=4)
 
     def get_splitted_data(self):
+        super(GPReviewDataset, self).__init__()
         train_data_loader = self.create_data_loader(
             self.df_train, self.tokenizer, self.max_len, self.batch_size
         )
@@ -116,7 +120,7 @@ class SentimentClassifier(nn.Module):
         return self.out(output)
 
 
-df = pd.read_csv("../notebooks/reviews.csv")
+df = pd.read_csv("./notebooks/reviews.csv")
 gprd = GooglePlayReviewDataset(df, 16)
 train_data_loader, val_data_loader, test_data_loader = gprd.get_splitted_data()
 model = SentimentClassifier(3)
