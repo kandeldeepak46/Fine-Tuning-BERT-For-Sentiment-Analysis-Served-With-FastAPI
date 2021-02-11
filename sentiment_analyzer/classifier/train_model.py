@@ -13,13 +13,9 @@ from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
 from torch import nn
 from torch.utils.data import DataLoader, Dataset
-from transformers import (
-    AdamW,
-    BertModel,
-    BertTokenizer,
-    get_constant_schedule_with_warmup,
-    get_linear_schedule_with_warmup,
-)
+from transformers import (AdamW, BertModel, BertTokenizer,
+                          get_constant_schedule_with_warmup,
+                          get_linear_schedule_with_warmup)
 
 sns.set(style="whitegrid", palette="muted", font_scale=1.2)
 
