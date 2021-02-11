@@ -30,10 +30,11 @@ HAPPY_COLORS_PALETTE = [
 
 sns.set_palette(sns.color_palette(HAPPY_COLORS_PALETTE))
 rcParams["figure.figsize"] = 12, 8
+
 RANDOM_SEED = 42
 MAX_LEN = 160
 BATCH_SIZE = 16
-
+EPOCHS = 10
 
 np.random.seed(RANDOM_SEED)
 torch.manual_seed(RANDOM_SEED)
@@ -54,7 +55,7 @@ class GPReviewDataset(Dataset):
     def __len__(self):
         return len(self.reviews)
 
-    def __getitem__(self, item):
+    def __getitem__(self, item) -> dict:
         review = str(self.reviews[item])
         target = self.targets[item]
 
@@ -162,7 +163,7 @@ class SentimentClassifier(nn.Module):
 model = SentimentClassifier(len(class_names))
 model = model.to(device)
 
-EPOCHS = 10
+
 optimizer = AdamW(model.parameters(), lr=2e-5, correct_bias=False)
 total_steps = len(train_data_loader) * EPOCHS
 scheduler = get_linear_schedule_with_warmup(
