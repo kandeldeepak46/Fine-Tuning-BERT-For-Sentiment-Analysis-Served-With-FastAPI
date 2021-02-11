@@ -9,7 +9,7 @@ Deploy a pre-trained BERT model for Sentiment Analysis as a REST API using FastA
 Clone this repo:
 
 ```sh
-git clone https://github.com/kandeldeepak46/Fine-Tuning-BERT-For-Sentiment-Analysis-Served-With-fastAPI.git
+git clone https://github.com/kandeldeepak46/Fine-Tuning-BERT-For-Sentiment-Analysis-Served-With-FastAPI.git
 cd Fine-Tuning-BERT-For-Sentiment-Analysis-Served-With-fastAPI
 ```
 
