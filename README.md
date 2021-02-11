@@ -10,7 +10,7 @@ Clone this repo:
 
 ```sh
 git clone https://github.com/kandeldeepak46/Fine-Tuning-BERT-For-Sentiment-Analysis-Served-With-FastAPI.git
-cd Fine-Tuning-BERT-For-Sentiment-Analysis-Served-With-fastAPI
+cd Fine-Tuning-BERT-For-Sentiment-Analysis-Served-With-FastAPI
 ```
 
 Install the dependencies:
