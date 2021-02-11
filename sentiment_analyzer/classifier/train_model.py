@@ -1,3 +1,4 @@
+import os
 from collections import defaultdict
 from textwrap import wrap
 
@@ -13,12 +14,21 @@ from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
 from torch import nn
 from torch.utils.data import DataLoader, Dataset
-from transformers import (AdamW, BertModel, BertTokenizer,
-                          get_constant_schedule_with_warmup,
-                          get_linear_schedule_with_warmup)
+from transformers import (
+    AdamW,
+    BertModel,
+    BertTokenizer,
+    get_constant_schedule_with_warmup,
+    get_linear_schedule_with_warmup,
+)
 
-sns.set(style="whitegrid", palette="muted", font_scale=1.2)
 
+PRE_TRAINED_MODEL_NAME = "bert-base-cased"
+RANDOM_SEED = 42
+MAX_LEN = 160
+BATCH_SIZE = 16
+EPOCHS = 10
+TRAINING_FILE_PATH = "./notebooks/reviews.csv"
 HAPPY_COLORS_PALETTE = [
     "#01BEFE",
     "#FFDD00",
@@ -28,20 +38,13 @@ HAPPY_COLORS_PALETTE = [
     "#8F00FF",
 ]
 
+
+sns.set(style="whitegrid", palette="muted", font_scale=1.2)
 sns.set_palette(sns.color_palette(HAPPY_COLORS_PALETTE))
 rcParams["figure.figsize"] = 12, 8
-
-RANDOM_SEED = 42
-MAX_LEN = 160
-BATCH_SIZE = 16
-EPOCHS = 10
-
 np.random.seed(RANDOM_SEED)
 torch.manual_seed(RANDOM_SEED)
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-
-
-PRE_TRAINED_MODEL_NAME = "bert-base-cased"
 class_names = ["negative", "neutral", "positive"]
 
 
@@ -88,9 +91,13 @@ def to_sentiment(rating):
         return 2
 
 
-df = pd.read_csv("./notebooks/reviews.csv")
+if not os.path.exists(TRAINING_FILE_PATH):
+    raise FileExistsError("Training file not found, please check the directory")
+
+df = pd.read_csv(TRAINING_FILE_PATH)
 df["sentiment"] = df.score.apply(to_sentiment)
 tokenizer = BertTokenizer.from_pretrained(PRE_TRAINED_MODEL_NAME)
+
 
 class GPReviewDataset(Dataset):
     def __init__(self, reviews, targets, tokenizer, max_len):
@@ -100,7 +107,7 @@ class GPReviewDataset(Dataset):
         self.tokenizer = tokenizer
         self.max_len = max_len
 
-    def __len__(self)
+    def __len__(self):
 
         return len(self.reviews)
 
