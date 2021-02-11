@@ -91,7 +91,6 @@ df = pd.read_csv("./notebooks/reviews.csv")
 df["sentiment"] = df.score.apply(to_sentiment)
 tokenizer = BertTokenizer.from_pretrained(PRE_TRAINED_MODEL_NAME)
 
-
 class GPReviewDataset(Dataset):
     def __init__(self, reviews, targets, tokenizer, max_len):
 
