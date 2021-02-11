@@ -18,7 +18,7 @@ class SentimentResponse(BaseModel):
     confidence: float
 
 
-@app.post("/predict", response_model=SentimentResponse)
+@app.post("/api/v1/predict", response_model=SentimentResponse)
 def predict(request: SentimentRequest, model: Model = Depends(get_model)):
 
     sentiment, confidence, probabilities = model.predict(request.text)

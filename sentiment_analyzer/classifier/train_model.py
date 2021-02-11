@@ -99,7 +99,7 @@ class GPReviewDataset(Dataset):
         self.tokenizer = tokenizer
         self.max_len = max_len
 
-    def __len__(self):
+    def __len__(self)
 
         return len(self.reviews)
 
