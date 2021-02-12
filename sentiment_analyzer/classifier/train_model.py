@@ -9,6 +9,7 @@ import seaborn as sns
 import torch
 import transformers
 from matplotlib import rc
+from loguru import logger
 from pylab import rcParams
 from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import train_test_split
@@ -222,8 +223,7 @@ def main():
     history = defaultdict(list)
     best_accuracy = 0
     for epoch in range(EPOCHS):
-        print(f"Epoch {epoch + 1}/{EPOCHS}")
-        print("-" * 10)
+        logger.info(f"Epoch {epoch + 1}/{EPOCHS}")
         train_acc, train_loss = train_epoch(
             model,
             train_data_loader,
@@ -233,13 +233,12 @@ def main():
             scheduler,
             len(df_train),
         )
-        print(f"Train loss {train_loss} accuracy {train_acc}")
+        logger.info(f"Train loss {train_loss} accuracy {train_acc}")
         val_acc, val_loss = eval_model(
             model, val_data_loader, loss_fn, device, len(df_val)
         )
 
-        print(f"Val   loss {val_loss} accuracy {val_acc}")
-        print()
+        logger.info(f"Val   loss {val_loss} accuracy {val_acc}")
         history["train_acc"].append(train_acc)
         history["train_loss"].append(train_loss)
         history["val_acc"].append(val_acc)
