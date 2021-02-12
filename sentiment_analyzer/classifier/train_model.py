@@ -180,7 +180,9 @@ scheduler = get_linear_schedule_with_warmup(
 loss_fn = nn.CrossEntropyLoss().to(device)
 
 
-def train_epoch(model, data_loader, loss_fn, optimizer, device, scheduler, n_examples):
+def train_epoch(
+    model, data_loader, loss_fn, optimizer, device, scheduler, n_examples
+) -> list:
     model = model.train()
     losses = []
     correct_predictions = 0
@@ -201,7 +203,7 @@ def train_epoch(model, data_loader, loss_fn, optimizer, device, scheduler, n_exa
     return correct_predictions.double() / n_examples, np.mean(losses)
 
 
-def eval_model(model, data_loader, loss_fn, device, n_examples):
+def eval_model(model, data_loader, loss_fn, device, n_examples) -> list:
     model = model.eval()
     losses = []
     correct_predictions = 0
@@ -262,6 +264,17 @@ def run_experiment(
     model_evaluation=False,
     show_confusion_matrix=False,
 ):
+    """
+    Function to train the sentiment classifier model for 3 class of sentiment
+
+    Arguments:
+            plot_arruracy <bool> : if True, shows the accuracy graph after completion of training
+            plos_loss<bool> : if True, shows the loss graph after completion of training
+            model_evaluaion<bool> : if True, performance of the model is analysed in validation dataset
+            show_confusion_matrix<bool> : if True, the confusion matrix graph is plotted
+    Returns:
+            None
+    """
     history = defaultdict(list)
     best_accuracy = 0
     for epoch in range(EPOCHS):
@@ -324,6 +337,7 @@ def run_experiment(
         cm = confusion_matrix(y_test, y_pred)
         df_cm = pd.DataFrame(cm, index=class_names, columns=class_names)
         show_confusion_matrix(df_cm)
+
 
 def main():
     run_experiment()
