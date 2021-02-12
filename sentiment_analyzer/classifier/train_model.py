@@ -219,7 +219,7 @@ def eval_model(model, data_loader, loss_fn, device, n_examples):
         return correct_predictions.double() / n_examples, np.mean(losses)
 
 
-def main():
+def run_experiment(plot_accuracy = False, plot_loss = False):
     history = defaultdict(list)
     best_accuracy = 0
     for epoch in range(EPOCHS):
@@ -243,10 +243,30 @@ def main():
         history["train_loss"].append(train_loss)
         history["val_acc"].append(val_acc)
         history["val_loss"].append(val_loss)
+        
         if val_acc > best_accuracy:
-
             torch.save(model.state_dict(), "best_model_state.bin")
             best_accuracy = val_acc
+    
 
+    if plot_accuracy is True:
+        plt.plot(history['train_acc'], label='train accuracy')
+        plt.plot(history['val_acc'], label='validation accuracy')
+        plt.title('Training history')
+        plt.ylabel('Accuracy')
+        plt.xlabel('Epoch')
+        plt.legend()
+        plt.ylim([0, 1]);
+    
+    if plot_loss is True:
+        plt.plot(history['train_loss'], label='train loss')
+        plt.plot(history['val_loss'], label='validation loss')
+        plt.title('Loss history')
+        plt.ylabel('Loss')
+        plt.xlabel('Epoch')
+        plt.legend()
+        plt.ylim([0, 1]);
+    
+    
 if __name__ == '__main__':
-    main()
+    run_experiment()
