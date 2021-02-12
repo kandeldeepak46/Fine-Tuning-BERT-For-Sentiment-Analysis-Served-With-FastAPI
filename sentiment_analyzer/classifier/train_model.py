@@ -325,6 +325,9 @@ def run_experiment(
         df_cm = pd.DataFrame(cm, index=class_names, columns=class_names)
         show_confusion_matrix(df_cm)
 
+def main():
+    run_experiment()
+
 
 if __name__ == "__main__":
-    run_experiment()
+    main()
