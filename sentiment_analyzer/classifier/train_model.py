@@ -219,7 +219,49 @@ def eval_model(model, data_loader, loss_fn, device, n_examples):
         return correct_predictions.double() / n_examples, np.mean(losses)
 
 
-def run_experiment(plot_accuracy = False, plot_loss = False):
+def get_predictions(model, data_loader):
+
+    model = model.eval()
+    review_texts = []
+    predictions = []
+    prediction_probs = []
+    real_values = []
+
+    with torch.no_grad():
+        for d in data_loader:
+
+            texts = d["review_text"]
+            input_ids = d["input_ids"].to(device)
+            attention_mask = d["attention_mask"].to(device)
+            targets = d["targets"].to(device)
+            outputs = model(input_ids=input_ids, attention_mask=attention_mask)
+
+            _, preds = torch.max(outputs, dim=1)
+            review_texts.extend(texts)
+            predictions.extend(preds)
+            prediction_probs.extend(outputs)
+            real_values.extend(targets)
+    predictions = torch.stack(predictions).cpu()
+    prediction_probs = torch.stack(prediction_probs).cpu()
+    real_values = torch.stack(real_values).cpu()
+    return review_texts, predictions, prediction_probs, real_values
+
+
+def show_confusion_matrix(confusion_matrix):
+
+    hmap = sns.heatmap(confusion_matrix, annot=True, fmt="d", cmap="Blues")
+    hmap.yaxis.set_ticklabels(hmap.yaxis.get_ticklabels(), rotation=0, ha="right")
+    hmap.xaxis.set_ticklabels(hmap.xaxis.get_ticklabels(), rotation=30, ha="right")
+    plt.ylabel("True sentiment")
+    plt.xlabel("Predicted sentiment")
+
+
+def run_experiment(
+    plot_accuracy=False,
+    plot_loss=False,
+    model_evaluation=False,
+    show_confusion_matrix=False,
+):
     history = defaultdict(list)
     best_accuracy = 0
     for epoch in range(EPOCHS):
@@ -243,30 +285,46 @@ def run_experiment(plot_accuracy = False, plot_loss = False):
         history["train_loss"].append(train_loss)
         history["val_acc"].append(val_acc)
         history["val_loss"].append(val_loss)
-        
+
         if val_acc > best_accuracy:
             torch.save(model.state_dict(), "best_model_state.bin")
             best_accuracy = val_acc
-    
 
     if plot_accuracy is True:
-        plt.plot(history['train_acc'], label='train accuracy')
-        plt.plot(history['val_acc'], label='validation accuracy')
-        plt.title('Training history')
-        plt.ylabel('Accuracy')
-        plt.xlabel('Epoch')
+        plt.plot(history["train_acc"], label="train accuracy")
+        plt.plot(history["val_acc"], label="validation accuracy")
+        plt.title("Training history")
+        plt.ylabel("Accuracy")
+        plt.xlabel("Epoch")
         plt.legend()
-        plt.ylim([0, 1]);
-    
+        plt.ylim([0, 1])
+
     if plot_loss is True:
-        plt.plot(history['train_loss'], label='train loss')
-        plt.plot(history['val_loss'], label='validation loss')
-        plt.title('Loss history')
-        plt.ylabel('Loss')
-        plt.xlabel('Epoch')
+        plt.plot(history["train_loss"], label="train loss")
+        plt.plot(history["val_loss"], label="validation loss")
+        plt.title("Loss history")
+        plt.ylabel("Loss")
+        plt.xlabel("Epoch")
         plt.legend()
-        plt.ylim([0, 1]);
-    
-    
-if __name__ == '__main__':
+        plt.ylim([0, 1])
+
+    if model_evaluation is True:
+
+        test_acc, _ = eval_model(model, test_data_loader, loss_fn, device, len(df_test))
+
+        y_review_texts, y_pred, y_pred_probs, y_test = get_predictions(
+            model, test_data_loader
+        )
+        print(classification_report(y_test, y_pred, target_names=class_names))
+
+    if show_confusion_matrix is True:
+        y_review_texts, y_pred, y_pred_probs, y_test = get_predictions(
+            model, test_data_loader
+        )
+        cm = confusion_matrix(y_test, y_pred)
+        df_cm = pd.DataFrame(cm, index=class_names, columns=class_names)
+        show_confusion_matrix(df_cm)
+
+
+if __name__ == "__main__":
     run_experiment()
