@@ -218,8 +218,7 @@ def eval_model(model, data_loader, loss_fn, device, n_examples):
         return correct_predictions.double() / n_examples, np.mean(losses)
 
 
-if __name__ == "__main__":
-
+def main():
     history = defaultdict(list)
     best_accuracy = 0
     for epoch in range(EPOCHS):
@@ -249,3 +248,6 @@ if __name__ == "__main__":
 
             torch.save(model.state_dict(), "best_model_state.bin")
             best_accuracy = val_acc
+
+if __name__ == '__main__':
+    main()
