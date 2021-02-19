@@ -205,6 +205,7 @@ def train_epoch(
             scheduler.step()
             optimizer.zero_grad()
         return correct_predictions.double() / n_examples, np.mean(losses)
+
     except Exception as e:
         raise ValueError("could not train the module")
 
