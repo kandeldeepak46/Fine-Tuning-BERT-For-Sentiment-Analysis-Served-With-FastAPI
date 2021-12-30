@@ -14,6 +14,9 @@ class SentimentClassifier(nn.Module):
     """
 
     def __init__(self, n_classes):
+        """
+        :param n_classes: number of classes
+        """
         super(SentimentClassifier, self).__init__()
         self.bert = BertModel.from_pretrained(config["BERT_MODEL"])
         self.drop = nn.Dropout(p=0.3)
