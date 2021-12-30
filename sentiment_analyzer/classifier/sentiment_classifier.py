@@ -19,7 +19,12 @@ class SentimentClassifier(nn.Module):
         self.drop = nn.Dropout(p=0.3)
         self.out = nn.Linear(self.bert.config.hidden_size, n_classes)
 
-    def forward(self, input_ids, attention_mask):
+    def forward(self, input_ids, attention_mask) -> torch.Tensor:
+        """
+        :param input_ids: input_ids of the sentence
+        :param attention_mask: attention_mask of the sentence
+        :return: output of the classifier
+        """
         _, pooled_output = self.bert(input_ids=input_ids, attention_mask=attention_mask)
         output = self.drop(pooled_output)
         return self.out(output)
