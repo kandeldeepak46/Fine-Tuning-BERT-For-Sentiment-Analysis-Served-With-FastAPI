@@ -233,6 +233,14 @@ def train_epoch(
 
 
 def eval_model(model, data_loader, loss_fn, device, n_examples) -> list:
+    """
+    :param model: model to be evaluated
+    :param data_loader: data loader for validation data set
+    :param loss_fn: loss function
+    :param device: device to evaluate the model
+    :param n_examples: number of examples in the validation data set
+    :return: list of validation loss and validation accuracy
+    """
     model = model.eval()
     losses = []
     correct_predictions = 0
