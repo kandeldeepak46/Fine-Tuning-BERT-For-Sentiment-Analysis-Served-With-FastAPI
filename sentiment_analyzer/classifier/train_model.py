@@ -380,6 +380,9 @@ def run_experiment(
 
 
 def main():
+    """
+    :return: None
+    """
     run_experiment()
 
 
