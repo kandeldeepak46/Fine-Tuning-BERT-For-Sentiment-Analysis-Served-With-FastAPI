@@ -20,7 +20,9 @@ class SentimentResponse(BaseModel):
 
 @app.post("/api/v1/predict", response_model=SentimentResponse)
 def predict(request: SentimentRequest, model: Model = Depends(get_model)):
-
+    """
+    Predict the sentiment of the text. The model is loaded from the model path in config.json.
+    """
     sentiment, confidence, probabilities = model.predict(request.text)
     return SentimentResponse(
         sentiment=sentiment, confidence=confidence, probabilities=probabilities
