@@ -259,7 +259,11 @@ def eval_model(model, data_loader, loss_fn, device, n_examples) -> list:
 
 
 def get_predictions(model, data_loader):
-
+    """
+    :param model: model to be evaluated
+    :param data_loader: data loader for validation data set
+    :return: list of predictions
+    """
     model = model.eval()
     review_texts = []
     predictions = []
