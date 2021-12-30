@@ -307,7 +307,7 @@ def run_experiment(
     plot_loss=False,
     model_evaluation=False,
     show_confusion_matrix=False,
-):
+) -> None:
     """
     :param plot_accuracy: plot accuracy graph
     :param plot_loss: plot loss graph
