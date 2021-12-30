@@ -140,6 +140,9 @@ df_val, df_test = train_test_split(df_test, test_size=0.5, random_state=RANDOM_S
 
 
 def create_data_loader(df, tokenizer, max_len, batch_size):
+    """
+    create data loader for training and validation data sets and test data set for testing the model performance on test data set 
+    """
     ds = GPReviewDataset(
         reviews=df.content.to_numpy(),
         targets=df.sentiment.to_numpy(),
