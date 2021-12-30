@@ -60,6 +60,10 @@ class GPReviewDataset(Dataset):
         return len(self.reviews)
 
     def __getitem__(self, item) -> dict:
+        """
+        :param item: index of the review
+        :return: dictionary with the review and the target
+        """
         review = str(self.reviews[item])
         target = self.targets[item]
 
