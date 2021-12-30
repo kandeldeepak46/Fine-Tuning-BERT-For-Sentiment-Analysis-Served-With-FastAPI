@@ -81,7 +81,7 @@ class GPReviewDataset(Dataset):
         }
 
 
-def to_sentiment(rating):
+def to_sentiment(rating) -> int:
     """
     converting fine grained sentiments to 3 levels of sentiment
     """

@@ -302,7 +302,7 @@
                 "sha256:ecdc2ea4011e3ec04937b6b9e803ab671c3ac04e81b1df20354e01453e508b2f"
             ],
             "index": "pypi",
-            "version": "==1.5.0"
+            "version": "==1.8.1"
         },
         "tqdm": {
             "hashes": [
