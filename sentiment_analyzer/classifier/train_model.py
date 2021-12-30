@@ -291,7 +291,10 @@ def get_predictions(model, data_loader):
 
 
 def show_confusion_matrix(confusion_matrix):
-
+    """
+    :param confusion_matrix: confusion matrix
+    :return: confusion matrix plot
+    """
     hmap = sns.heatmap(confusion_matrix, annot=True, fmt="d", cmap="Blues")
     hmap.yaxis.set_ticklabels(hmap.yaxis.get_ticklabels(), rotation=0, ha="right")
     hmap.xaxis.set_ticklabels(hmap.xaxis.get_ticklabels(), rotation=30, ha="right")
