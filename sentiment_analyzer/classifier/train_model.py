@@ -309,15 +309,11 @@ def run_experiment(
     show_confusion_matrix=False,
 ):
     """
-    Function to train the sentiment classifier model for 3 class of sentiment
-
-    Arguments:
-            plot_arruracy <bool> : if True, shows the accuracy graph after completion of training
-            plos_loss<bool> : if True, shows the loss graph after completion of training
-            model_evaluaion<bool> : if True, performance of the model is analysed in validation dataset
-            show_confusion_matrix<bool> : if True, the confusion matrix graph is plotted
-    Returns:
-            None
+    :param plot_accuracy: plot accuracy graph
+    :param plot_loss: plot loss graph
+    :param model_evaluation: evaluate the model
+    :param show_confusion_matrix: show confusion matrix
+    :return: None
     """
     history = defaultdict(list)
     best_accuracy = 0
