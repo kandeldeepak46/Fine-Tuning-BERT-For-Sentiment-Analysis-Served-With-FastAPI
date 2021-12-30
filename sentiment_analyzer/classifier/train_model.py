@@ -197,6 +197,16 @@ loss_fn = nn.CrossEntropyLoss().to(device)
 def train_epoch(
     model, data_loader, loss_fn, optimizer, device, scheduler, n_examples
 ) -> list:
+    """
+    :param model: model to be trained
+    :param data_loader: data loader for training data set
+    :param loss_fn: loss function
+    :param optimizer: optimizer for the model
+    :param device: device to train the model
+    :param scheduler: scheduler for the model
+    :param n_examples: number of examples in the training data set
+    :return: list of training loss and validation loss
+    """
     model = model.train()
     losses = []
     correct_predictions = 0
