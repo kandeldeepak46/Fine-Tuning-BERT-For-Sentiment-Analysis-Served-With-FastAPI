@@ -87,7 +87,8 @@ class GPReviewDataset(Dataset):
 
 def to_sentiment(rating) -> int:
     """
-    converting fine grained sentiments to 3 levels of sentiment
+    :param rating: rating of the review
+    :return: sentiment of the review
     """
     rating = int(rating)
     if rating <= 2:
