@@ -144,7 +144,7 @@ df_train, df_test = train_test_split(df, test_size=0.1, random_state=RANDOM_SEED
 df_val, df_test = train_test_split(df_test, test_size=0.5, random_state=RANDOM_SEED)
 
 
-def create_data_loader(df, tokenizer, max_len, batch_size):
+def create_data_loader(df, tokenizer, max_len, batch_size) -> DataLoader:
     """
     create data loader for training and validation data sets and test data set for testing the model performance on test data set 
     """
