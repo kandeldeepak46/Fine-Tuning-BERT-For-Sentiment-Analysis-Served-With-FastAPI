@@ -258,7 +258,7 @@ def eval_model(model, data_loader, loss_fn, device, n_examples) -> list:
         return correct_predictions.double() / n_examples, np.mean(losses)
 
 
-def get_predictions(model, data_loader):
+def get_predictions(model, data_loader) -> list:
     """
     :param model: model to be evaluated
     :param data_loader: data loader for validation data set
