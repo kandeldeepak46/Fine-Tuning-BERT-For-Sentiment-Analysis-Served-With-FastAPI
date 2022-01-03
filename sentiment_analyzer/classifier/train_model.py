@@ -171,7 +171,7 @@ class SentimentClassifier(nn.Module):
         self.drop = nn.Dropout(p=0.3)
         self.out = nn.Linear(self.bert.config.hidden_size, n_classes)
 
-    def forward(self, input_ids, attention_mask):
+    def forward(self, input_ids, attention_mask) -> torch.Tensor:
         """
         :param input_ids: input ids of the review
         :param attention_mask: attention mask of the review
