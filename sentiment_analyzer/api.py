@@ -19,7 +19,9 @@ class SentimentResponse(BaseModel):
 
 
 @app.post("/api/v1/predict", response_model=SentimentResponse)
-def predict(request: SentimentRequest, model: Model = Depends(get_model)):
+def predict(
+    request: SentimentRequest, model: Model = Depends(get_model)
+) -> SentimentResponse:
     """
     Predict sentiment of text. Returns probabilities of each sentiment. 
 
